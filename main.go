@@ -28,8 +28,10 @@ func main() {
 
 	serveMux.HandleFunc("GET /api/healthz", handler.HandleHealthCheck)
 	serveMux.HandleFunc("GET /admin/metrics", apiCfg.HandleServerHits)
-	serveMux.HandleFunc("POST /admin/reset", apiCfg.HandleHitsReset)
-	serveMux.HandleFunc("POST /api/validate_chirp", handler.HandleValidateChirp)
+	serveMux.HandleFunc("POST /admin/reset", apiCfg.HandleReset)
+	serveMux.HandleFunc("POST /api/chirps", apiCfg.HandleChirp)
+	serveMux.HandleFunc("GET /api/chirps", apiCfg.HandleChirps)
+	serveMux.HandleFunc("POST /api/users", apiCfg.CreateUser)
 
 	server := &http.Server{
 		Addr:    ":8080",
