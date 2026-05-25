@@ -7,10 +7,13 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/joschi64/Go_HTTP_Server/internal/auth"
+	"github.com/joschi64/Go_HTTP_Server/internal/database"
 )
 
 type User struct {
-	Email string `json:"email"`
+	Email    string `json:"email"`
+	PASSWORD string `json:"password"`
 }
 
 type response struct {
@@ -31,7 +34,17 @@ func (a *ApiConfig) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := a.DB.CreateUser(r.Context(), userS.Email)
+	hashed_password, err := auth.HashPassword(userS.PASSWORD)
+
+	if err != nil {
+		respondWithError(w, 400, "Something went wrong while hashing")
+		return
+	}
+
+	user, err := a.DB.CreateUser(r.Context(), database.CreateUserParams{
+		Email:          userS.Email,
+		HashedPassword: hashed_password,
+	})
 
 	payload := response{
 		ID:     user.ID,

@@ -33,6 +33,7 @@ func main() {
 	serveMux.HandleFunc("GET /api/chirps", apiCfg.HandleChirps)
 	serveMux.HandleFunc("GET /api/chirps/{chirpID}", apiCfg.GetChirp)
 	serveMux.HandleFunc("POST /api/users", apiCfg.CreateUser)
+	serveMux.HandleFunc("POST /api/login", apiCfg.HandleUserLogin)
 
 	server := &http.Server{
 		Addr:    ":8080",
