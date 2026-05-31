@@ -14,12 +14,15 @@ import (
 
 func main() {
 	godotenv.Load()
+	secret := os.Getenv("SECRET")
 	dbURL := os.Getenv("DB_URL")
+
 	db, _ := sql.Open("postgres", dbURL)
 	dbQueries := database.New(db)
 
 	apiCfg := &handler.ApiConfig{
-		DB: dbQueries,
+		SECRET: secret,
+		DB:     dbQueries,
 	}
 	serveMux := http.NewServeMux()
 

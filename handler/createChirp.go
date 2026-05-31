@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/joschi64/Go_HTTP_Server/internal/auth"
 	"github.com/joschi64/Go_HTTP_Server/internal/database"
 )
 
@@ -21,13 +22,26 @@ type responseChirp struct {
 
 func (a *ApiConfig) HandleChirp(w http.ResponseWriter, r *http.Request) {
 	type parameters struct {
-		Body   string    `json:"body"`
-		UserID uuid.UUID `json:"user_id"`
+		Body string `json:"body"`
+	}
+
+	token, err := auth.GetBearerToken(r.Header)
+
+	if err != nil {
+		respondWithError(w, 401, "Something went wrong")
+		return
+	}
+
+	userID, err := auth.ValidateJWT(token, a.SECRET)
+
+	if err != nil {
+		respondWithError(w, 401, "Something went wrong")
+		return
 	}
 
 	decoder := json.NewDecoder(r.Body)
 	params := parameters{}
-	err := decoder.Decode(&params)
+	err = decoder.Decode(&params)
 	if err != nil {
 		log.Println("Error occured with Decoding")
 		respondWithError(w, 400, "Something went wrong")
@@ -51,7 +65,7 @@ func (a *ApiConfig) HandleChirp(w http.ResponseWriter, r *http.Request) {
 	chirp, err := a.DB.CreateChirp(r.Context(), database.CreateChirpParams{
 		Body: cleaned_body,
 		UserID: uuid.NullUUID{
-			UUID:  params.UserID,
+			UUID:  userID,
 			Valid: true,
 		},
 	})

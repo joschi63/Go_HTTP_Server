@@ -7,6 +7,7 @@ import (
 )
 
 type ApiConfig struct {
+	SECRET         string
 	DB             *database.Queries
 	PLATFORM       string
 	fileserverHits atomic.Int32
