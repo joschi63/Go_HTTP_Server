@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -28,7 +29,7 @@ func (a *ApiConfig) HandleChirp(w http.ResponseWriter, r *http.Request) {
 	token, err := auth.GetBearerToken(r.Header)
 
 	if err != nil {
-		respondWithError(w, 401, "Something went wrong")
+		respondWithError(w, 400, "Something went wrong")
 		return
 	}
 
@@ -69,8 +70,9 @@ func (a *ApiConfig) HandleChirp(w http.ResponseWriter, r *http.Request) {
 			Valid: true,
 		},
 	})
+
 	if err != nil {
-		respondWithError(w, 500, "Something went wrong")
+		respondWithError(w, 500, fmt.Sprintf("Something went wrong %w", err))
 		return
 	}
 
