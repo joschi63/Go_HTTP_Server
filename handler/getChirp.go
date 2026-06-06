@@ -32,5 +32,5 @@ func (a *ApiConfig) GetChirp(w http.ResponseWriter, r *http.Request) {
 		USERID: chirp.UserID,
 	}
 
-	RespondWithJSON(w, 200, payload)
+	respondWithJSON(w, 200, payload)
 }

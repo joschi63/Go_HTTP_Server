@@ -42,5 +42,5 @@ func (a *ApiConfig) HandleRefresh(w http.ResponseWriter, r *http.Request) {
 		TOKEN: jwt_token,
 	}
 
-	RespondWithJSON(w, 200, payload)
+	respondWithJSON(w, 200, payload)
 }

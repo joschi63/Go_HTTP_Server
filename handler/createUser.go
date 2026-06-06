@@ -52,7 +52,7 @@ func (a *ApiConfig) CreateUser(w http.ResponseWriter, r *http.Request) {
 		UPDATE: user.UpdatedAt,
 		EMAIL:  user.Email,
 	}
-	RespondWithJSON(w, 201, payload)
+	respondWithJSON(w, 201, payload)
 }
 
 func (a *ApiConfig) HandleReset(w http.ResponseWriter, r *http.Request) {
@@ -75,5 +75,5 @@ func (a *ApiConfig) HandleReset(w http.ResponseWriter, r *http.Request) {
 	payload := response{
 		RESPONSE: "all users have been deleted",
 	}
-	RespondWithJSON(w, 200, payload)
+	respondWithJSON(w, 200, payload)
 }

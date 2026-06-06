@@ -24,5 +24,5 @@ func (a *ApiConfig) HandleChirps(w http.ResponseWriter, r *http.Request) {
 		payload = append(payload, result)
 	}
 
-	RespondWithJSON(w, 200, payload)
+	respondWithJSON(w, 200, payload)
 }

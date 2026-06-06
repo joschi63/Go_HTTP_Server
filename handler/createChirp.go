@@ -83,5 +83,5 @@ func (a *ApiConfig) HandleChirp(w http.ResponseWriter, r *http.Request) {
 		BODY:   chirp.Body,
 		USERID: chirp.UserID,
 	}
-	RespondWithJSON(w, 201, payload)
+	respondWithJSON(w, 201, payload)
 }

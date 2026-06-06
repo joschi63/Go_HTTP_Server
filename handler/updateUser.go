@@ -68,6 +68,6 @@ func (a *ApiConfig) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 		ID:     user.ID,
 	}
 
-	RespondWithJSON(w, 200, payload)
+	respondWithJSON(w, 200, payload)
 
 }

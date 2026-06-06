@@ -85,6 +85,6 @@ func (a *ApiConfig) HandleUserLogin(w http.ResponseWriter, r *http.Request) {
 		TOKEN:   token,
 		REFRESH: refresh_token,
 	}
-	RespondWithJSON(w, 200, payload)
+	respondWithJSON(w, 200, payload)
 
 }

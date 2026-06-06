@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func RespondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 
 	body := payload
 
@@ -31,5 +31,5 @@ func respondWithError(w http.ResponseWriter, code int, msg string) {
 		Error: msg,
 	}
 
-	RespondWithJSON(w, code, body)
+	respondWithJSON(w, code, body)
 }
