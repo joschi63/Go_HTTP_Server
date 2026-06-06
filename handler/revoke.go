@@ -22,5 +22,4 @@ func (a *ApiConfig) HandleRevoke(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(204)
-	return
 }

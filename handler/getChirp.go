@@ -33,5 +33,4 @@ func (a *ApiConfig) GetChirp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	RespondWithJSON(w, 200, payload)
-	return
 }
