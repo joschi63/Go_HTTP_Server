@@ -18,12 +18,13 @@ type LoginUser struct {
 }
 
 type LoginResponse struct {
-	ID      uuid.UUID `json:"id"`
-	CREATE  time.Time `json:"created_at"`
-	UPDATE  time.Time `json:"updated_at"`
-	EMAIL   string    `json:"email"`
-	TOKEN   string    `json:"token"`
-	REFRESH string    `json:"refresh_token"`
+	ID          uuid.UUID `json:"id"`
+	CREATE      time.Time `json:"created_at"`
+	UPDATE      time.Time `json:"updated_at"`
+	EMAIL       string    `json:"email"`
+	IsChripyRed bool      `json:"is_chirpy_red"`
+	TOKEN       string    `json:"token"`
+	REFRESH     string    `json:"refresh_token"`
 }
 
 func (a *ApiConfig) HandleUserLogin(w http.ResponseWriter, r *http.Request) {
@@ -78,12 +79,13 @@ func (a *ApiConfig) HandleUserLogin(w http.ResponseWriter, r *http.Request) {
 	})
 
 	payload := LoginResponse{
-		ID:      db_user.ID,
-		CREATE:  db_user.CreatedAt,
-		UPDATE:  db_user.UpdatedAt,
-		EMAIL:   db_user.Email,
-		TOKEN:   token,
-		REFRESH: refresh_token,
+		ID:          db_user.ID,
+		CREATE:      db_user.CreatedAt,
+		UPDATE:      db_user.UpdatedAt,
+		EMAIL:       db_user.Email,
+		IsChripyRed: db_user.IsChirpyRed.Bool,
+		TOKEN:       token,
+		REFRESH:     refresh_token,
 	}
 	respondWithJSON(w, 200, payload)
 

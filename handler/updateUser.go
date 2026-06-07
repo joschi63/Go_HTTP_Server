@@ -62,10 +62,11 @@ func (a *ApiConfig) HandleUpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	payload := response{
-		EMAIL:  user.Email,
-		CREATE: user.CreatedAt,
-		UPDATE: user.UpdatedAt,
-		ID:     user.ID,
+		Email:       user.Email,
+		Create:      user.CreatedAt,
+		Update:      user.UpdatedAt,
+		Id:          user.ID,
+		IsChirpyRed: user.IsChirpyRed.Bool,
 	}
 
 	respondWithJSON(w, 200, payload)

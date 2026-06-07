@@ -16,13 +16,15 @@ func main() {
 	godotenv.Load()
 	secret := os.Getenv("SECRET")
 	dbURL := os.Getenv("DB_URL")
+	polkaKey := os.Getenv("POLKA_KEY")
 
 	db, _ := sql.Open("postgres", dbURL)
 	dbQueries := database.New(db)
 
 	apiCfg := &handler.ApiConfig{
-		SECRET: secret,
-		DB:     dbQueries,
+		SECRET:   secret,
+		PolkaKey: polkaKey,
+		DB:       dbQueries,
 	}
 	serveMux := http.NewServeMux()
 
@@ -43,6 +45,7 @@ func main() {
 	serveMux.HandleFunc("POST /api/login", apiCfg.HandleUserLogin)
 	serveMux.HandleFunc("POST /api/refresh", apiCfg.HandleRefresh)
 	serveMux.HandleFunc("POST /api/revoke", apiCfg.HandleRevoke)
+	serveMux.HandleFunc("POST /api/polka/webhooks", apiCfg.HandleUpgradeUser)
 
 	server := &http.Server{
 		Addr:    ":8080",

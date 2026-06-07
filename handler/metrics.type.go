@@ -8,6 +8,7 @@ import (
 
 type ApiConfig struct {
 	SECRET         string
+	PolkaKey       string
 	DB             *database.Queries
 	PLATFORM       string
 	fileserverHits atomic.Int32

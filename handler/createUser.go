@@ -17,10 +17,11 @@ type User struct {
 }
 
 type response struct {
-	ID     uuid.UUID `json:"id"`
-	CREATE time.Time `json:"created_at"`
-	UPDATE time.Time `json:"updated_at"`
-	EMAIL  string    `json:"email"`
+	Id          uuid.UUID `json:"id"`
+	Create      time.Time `json:"created_at"`
+	Update      time.Time `json:"updated_at"`
+	Email       string    `json:"email"`
+	IsChirpyRed bool      `json:"is_chirpy_red"`
 }
 
 func (a *ApiConfig) CreateUser(w http.ResponseWriter, r *http.Request) {
@@ -47,10 +48,11 @@ func (a *ApiConfig) CreateUser(w http.ResponseWriter, r *http.Request) {
 	})
 
 	payload := response{
-		ID:     user.ID,
-		CREATE: user.CreatedAt,
-		UPDATE: user.UpdatedAt,
-		EMAIL:  user.Email,
+		Id:          user.ID,
+		Create:      user.CreatedAt,
+		Update:      user.UpdatedAt,
+		Email:       user.Email,
+		IsChirpyRed: user.IsChirpyRed.Bool,
 	}
 	respondWithJSON(w, 201, payload)
 }
